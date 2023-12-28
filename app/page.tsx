@@ -10,23 +10,25 @@ export default function Home() {
   const [thread, setThread] = useState(null)
   const textAreaRef = useRef(null);
   // async function createIndexAndEmbeddings() {
-  //   try {
-  //     const result = await fetch('/api/setup', {
-  //       method: "POST"
-  //     })
-  //     const json = await result.json()
-  //     console.log('result: ', json)
-  //   } catch (err) {
-  //     console.log('err:', err)
-  //   }
-  // }
+    //   try {
+      //     const result = await fetch('/api/setup', {
+        //       method: "POST"
+        //     })
+        //     const json = await result.json()
+        //     console.log('result: ', json)
+        //   } catch (err) {
+          //     console.log('err:', err)
+          //   }
+          // }
 
-  // services/apiService.js
-const url_object = {
-  "local": 'http://127.0.0.1:8000',
-  // "fitmate": 'http://fitmategpt-production.up.railway.app'
-}
-const API_URL = url_object["local"]; // Replace with your FastAPI server URL
+          // services/apiService.js
+          const url_object = {
+            "Local": 'http://127.0.0.1:8000',
+            "Fitmate": 'http://fitmategpt-production.up.railway.app',
+            "Dutch": 'https://web-production-d5f7.up.railway.app'
+          }
+// const []
+const [API_URL, setAPI_URL] = useState(url_object["Local"]); // Replace with your FastAPI server URL
 
 const startConversation = async () => {
   const response = await fetch(`${API_URL}/start`);
@@ -173,6 +175,7 @@ const checkRunStatus = async (threadId, runId) => {
       setResponse('An error occurred while sending the message.');
     }
   };
+  console.log("Api url: ",API_URL)
   
   return (
     // TODO: move input to bottom
@@ -200,6 +203,12 @@ const checkRunStatus = async (threadId, runId) => {
           <textarea className='text-black py-1 max-w-[80%] center' cols={40} onChange={e => setMessage(e.target.value)}/>
           <button className="px-7 py-1 rounded-2xl bg-white text-black mt-2 mb-2 max-w-[80%]" onClick={handleSend}>Send Message</button>
         </div>
+        {/* dropdown to change APIUrl */}
+        <select name="api_url" id="api_url" onChange={e => setAPI_URL(url_object[e.target.value])}>
+          <option value="Local">Local</option>
+          <option value="Fitmate">Fitmate</option>
+          <option value="Dutch">Dutch</option>
+        </select>
 
     </main>
   )
