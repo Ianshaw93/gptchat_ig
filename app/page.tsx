@@ -146,18 +146,14 @@ const checkRunStatus = async (threadId, runId) => {
   
       // Function to periodically check the status
       const checkStatus = async () => {
-        // if (Date.now() - startTime > timeout) {
-        //   setResponse('Timeout occurred.');
-        //   const startTime = Date.now() + 1500;
-        //   setTimeout(checkStatus, 1500); // Check every second, adjust as needed
-        // }
-  
+
         const statusData = await checkRunStatus(threadId, runId);
         console.log('statusData:', statusData)
         if (statusData.status === 'completed') {
           // If completed, set the response
           setResponse(statusData.response);
           // add to history
+          // @ts-ignore
           setHistory([...history, {source: 'user', message}, {source: 'bot', message: statusData.response}])
         } else if (statusData.status === 'in_progress' || statusData.status === 'requires_action' || statusData.response === 'timeout') {
           // If still in progress, check again after a delay
@@ -188,10 +184,10 @@ const checkRunStatus = async (threadId, runId) => {
           history.map((item, index) => {
             console.log('item:', item)
             return (<div 
-              className={`
-              rounded-xl bg-white px-1 mx-5 mb-3 shadow-lg shadow-gray-600 max-w-[80%] 
-              ${item.source === 'user' ? 'ml-auto' : 'mr-auto'}
+              // @ts-ignore
+              className={`rounded-xl bg-white px-1 mx-5 mb-3 shadow-lg shadow-gray-600 max-w-[80%] ${item.source === 'user' ? 'ml-auto' : 'mr-auto'}
             `}
+            // @ts-ignore
               key={index}>{item.message}</div>)
           })
         }
