@@ -24,7 +24,7 @@ export default function Home() {
           // services/apiService.js
           const url_object = {
             "Local": 'http://127.0.0.1:8000',
-            "Fitmate": 'http://fitmategpt-production.up.railway.app',
+            "Fitmate": 'https://fitmategpt-production.up.railway.app',
             "Dutch": 'https://web-production-d5f7.up.railway.app'
           }
 // const []
